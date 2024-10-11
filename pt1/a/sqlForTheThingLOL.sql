@@ -45,25 +45,12 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `university`.`term`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `university`.`term` ;
-
-CREATE TABLE IF NOT EXISTS `university`.`term` (
-  `term_id` INT NOT NULL AUTO_INCREMENT,
-  `term` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`term_id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `university`.`degree`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `university`.`degree` ;
 
 CREATE TABLE IF NOT EXISTS `university`.`degree` (
   `degree_id` INT NOT NULL AUTO_INCREMENT,
-  `degree_department` VARCHAR(45) NOT NULL,
   `degree` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`degree_id`))
 ENGINE = InnoDB;
@@ -92,47 +79,40 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `university`.`term`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `university`.`term` ;
+
+CREATE TABLE IF NOT EXISTS `university`.`term` (
+  `term_id` INT NOT NULL AUTO_INCREMENT,
+  `term_semester` VARCHAR(45) NOT NULL,
+  `term_year` INT NOT NULL,
+  PRIMARY KEY (`term_id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `university`.`section`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `university`.`section` ;
 
 CREATE TABLE IF NOT EXISTS `university`.`section` (
   `section_id` INT NOT NULL AUTO_INCREMENT,
-  `section_year` INT NOT NULL,
-  `section_term` VARCHAR(6) NOT NULL,
   `section` INT NOT NULL,
   `section_capacity` VARCHAR(45) NOT NULL,
   `course_id` INT NOT NULL,
+  `term_id` INT NOT NULL,
   PRIMARY KEY (`section_id`),
   INDEX `fk_section_course1_idx` (`course_id` ASC) VISIBLE,
+  INDEX `fk_section_term1_idx` (`term_id` ASC) VISIBLE,
   CONSTRAINT `fk_section_course1`
     FOREIGN KEY (`course_id`)
     REFERENCES `university`.`course` (`course_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `university`.`section_term`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `university`.`section_term` ;
-
-CREATE TABLE IF NOT EXISTS `university`.`section_term` (
-  `section_term_id` INT NOT NULL AUTO_INCREMENT,
-  `term_id` INT NOT NULL,
-  `section_id` INT NOT NULL,
-  PRIMARY KEY (`section_term_id`),
-  INDEX `fk_section_term_term1_idx` (`term_id` ASC) VISIBLE,
-  INDEX `fk_section_term_section1_idx` (`section_id` ASC) VISIBLE,
-  CONSTRAINT `fk_section_term_term1`
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_section_term1`
     FOREIGN KEY (`term_id`)
     REFERENCES `university`.`term` (`term_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_section_term_section1`
-    FOREIGN KEY (`section_id`)
-    REFERENCES `university`.`section` (`section_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -148,10 +128,11 @@ CREATE TABLE IF NOT EXISTS `university`.`enrollment` (
   `role_id` INT NOT NULL,
   `person_id` INT NOT NULL,
   `section_term_id` INT NOT NULL,
+  `section_id` INT NOT NULL,
   PRIMARY KEY (`enrollment_id`),
   INDEX `fk_enrollment_role1_idx` (`role_id` ASC) VISIBLE,
   INDEX `fk_enrollment_person1_idx` (`person_id` ASC) VISIBLE,
-  INDEX `fk_enrollment_section_term1_idx` (`section_term_id` ASC) VISIBLE,
+  INDEX `fk_enrollment_section1_idx` (`section_id` ASC) VISIBLE,
   CONSTRAINT `fk_enrollment_role1`
     FOREIGN KEY (`role_id`)
     REFERENCES `university`.`role` (`role_id`)
@@ -162,9 +143,28 @@ CREATE TABLE IF NOT EXISTS `university`.`enrollment` (
     REFERENCES `university`.`person` (`person_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_enrollment_section_term1`
-    FOREIGN KEY (`section_term_id`)
-    REFERENCES `university`.`section_term` (`section_term_id`)
+  CONSTRAINT `fk_enrollment_section1`
+    FOREIGN KEY (`section_id`)
+    REFERENCES `university`.`section` (`section_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `university`.`department`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `university`.`department` ;
+
+CREATE TABLE IF NOT EXISTS `university`.`department` (
+  `department_id` INT NOT NULL AUTO_INCREMENT,
+  `department` VARCHAR(45) NULL,
+  `degree_id` INT NOT NULL,
+  PRIMARY KEY (`department_id`),
+  INDEX `fk_department_degree1_idx` (`degree_id` ASC) VISIBLE,
+  CONSTRAINT `fk_department_degree1`
+    FOREIGN KEY (`degree_id`)
+    REFERENCES `university`.`degree` (`degree_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -173,5 +173,6 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
 
 
