@@ -95,6 +95,258 @@ INSERT INTO person (person_fname, person_lname, person_gender, person_city, pers
 , ('Janine', 'Bowers', 'F', 'Rexburg', 'ID', '2004-06-23')
 , ('Kerri', 'Shah', 'F', 'Mesa', 'AZ', '2003-04-05')
 
+
 -- CREATE ENROLLMENTS
 INSERT INTO enrollment (person_id, section_id, role_id) VALUES
-  
+( (SELECT person_id FROM person WHERE person_fname = 'John')
+, (SELECT section_id
+   FROM   section s
+   INNER JOIN course c ON s.course_id = c.course_id
+   INNER JOIN term t ON s.term_id = t.term_id
+   WHERE CONCAT(term_semester, ' ', term_year) = 'Fall 2024'
+   AND   CONCAT(course_code, ' ', course_num) = 'CSE 100'
+   AND   section_num = 1)
+, (SELECT role_id FROM role WHERE role = 'Teacher')
+);
+INSERT INTO enrollment (person_id, section_id, role_id) VALUES
+( (SELECT person_id FROM person WHERE person_fname = 'John')
+, (SELECT section_id
+   FROM   section s
+   INNER JOIN course c ON s.course_id = c.course_id
+   INNER JOIN term t ON s.term_id = t.term_id
+   WHERE CONCAT(term_semester, ' ', term_year) = 'Winter 2025'
+   AND   CONCAT(course_code, ' ', course_num) = 'CSE 100'
+   AND   section_num = 2)
+, (SELECT role_id FROM role WHERE role = 'Teacher')
+);
+INSERT INTO enrollment (person_id, section_id, role_id) VALUES
+( (SELECT person_id FROM person WHERE person_fname = 'John')
+, (SELECT section_id
+   FROM   section s
+   INNER JOIN course c ON s.course_id = c.course_id
+   INNER JOIN term t ON s.term_id = t.term_id
+   WHERE CONCAT(term_semester, ' ', term_year) = 'Winter 2025'
+   AND   CONCAT(course_code, ' ', course_num) = 'CSE 100'
+   AND   section_num = 3)
+, (SELECT role_id FROM role WHERE role = 'Teacher')
+);
+INSERT INTO enrollment (person_id, section_id, role_id) VALUES
+( (SELECT person_id FROM person WHERE person_fname = 'Reed')
+, (SELECT section_id
+   FROM   section s
+   INNER JOIN course c ON s.course_id = c.course_id
+   INNER JOIN term t ON s.term_id = t.term_id
+   WHERE CONCAT(term_semester, ' ', term_year) = 'Fall 2024'
+   AND   CONCAT(course_code, ' ', course_num) = 'WDD 130'
+   AND   section_num = 1)
+, (SELECT role_id FROM role WHERE role = 'Teacher')
+);
+INSERT INTO enrollment (person_id, section_id, role_id) VALUES
+( (SELECT person_id FROM person WHERE person_fname = 'Reed')
+, (SELECT section_id
+   FROM   section s
+   INNER JOIN course c ON s.course_id = c.course_id
+   INNER JOIN term t ON s.term_id = t.term_id
+   WHERE CONCAT(term_semester, ' ', term_year) = 'Fall 2024'
+   AND   CONCAT(course_code, ' ', course_num) = 'WDD 130'
+   AND   section_num = 1)
+, (SELECT role_id FROM role WHERE role = 'Teacher')
+);
+INSERT INTO enrollment (person_id, section_id, role_id) VALUES
+( (SELECT person_id FROM person WHERE person_fname = 'Reed')
+, (SELECT section_id
+   FROM   section s
+   INNER JOIN course c ON s.course_id = c.course_id
+   INNER JOIN term t ON s.term_id = t.term_id
+   WHERE CONCAT(term_semester, ' ', term_year) = 'Winter 2025'
+   AND   CONCAT(course_code, ' ', course_num) = 'WDD 130'
+   AND   section_num = 2)
+, (SELECT role_id FROM role WHERE role = 'Teacher')
+);
+INSERT INTO enrollment (person_id, section_id, role_id) VALUES
+( (SELECT person_id FROM person WHERE person_fname = 'George')
+, (SELECT section_id
+   FROM   section s
+   INNER JOIN course c ON s.course_id = c.course_id
+   INNER JOIN term t ON s.term_id = t.term_id
+   WHERE CONCAT(term_semester, ' ', term_year) = 'Fall 2024'
+   AND   CONCAT(course_code, ' ', course_num) = 'MATH 221B'
+   AND   section_num = 1)
+, (SELECT role_id FROM role WHERE role = 'Teacher')
+);
+INSERT INTO enrollment (person_id, section_id, role_id) VALUES
+( (SELECT person_id FROM person WHERE person_fname = 'Michael')
+, (SELECT section_id
+   FROM   section s
+   INNER JOIN course c ON s.course_id = c.course_id
+   INNER JOIN term t ON s.term_id = t.term_id
+   WHERE CONCAT(term_semester, ' ', term_year) = 'Fall 2024'
+   AND   CONCAT(course_code, ' ', course_num) = 'MATH 119'
+   AND   section_num = 1)
+, (SELECT role_id FROM role WHERE role = 'Teacher')
+);
+INSERT INTO enrollment (person_id, section_id, role_id) VALUES
+( (SELECT person_id FROM person WHERE person_fname = 'Michael')
+, (SELECT section_id
+   FROM   section s
+   INNER JOIN course c ON s.course_id = c.course_id
+   INNER JOIN term t ON s.term_id = t.term_id
+   WHERE CONCAT(term_semester, ' ', term_year) = 'Winter 2025'
+   AND   CONCAT(course_code, ' ', course_num) = 'MATH 119'
+   AND   section_num = 1)
+, (SELECT role_id FROM role WHERE role = 'Teacher')
+);
+INSERT INTO enrollment (person_id, section_id, role_id) VALUES
+( (SELECT person_id FROM person WHERE person_fname = 'Marhsall')
+, (SELECT section_id
+   FROM   section s
+   INNER JOIN course c ON s.course_id = c.course_id
+   INNER JOIN term t ON s.term_id = t.term_id
+   WHERE CONCAT(term_semester, ' ', term_year) = 'Fall 2024'
+   AND   CONCAT(course_code, ' ', course_num) = 'CSE 100'
+   AND   section_num = 1)
+, (SELECT role_id FROM role WHERE role = 'Student')
+);
+INSERT INTO enrollment (person_id, section_id, role_id) VALUES
+( (SELECT person_id FROM person WHERE person_fname = 'Marhsall')
+, (SELECT section_id
+   FROM   section s
+   INNER JOIN course c ON s.course_id = c.course_id
+   INNER JOIN term t ON s.term_id = t.term_id
+   WHERE CONCAT(term_semester, ' ', term_year) = 'Fall 2024'
+   AND   CONCAT(course_code, ' ', course_num) = 'WDD 130'
+   AND   section_num = 2)
+, (SELECT role_id FROM role WHERE role = 'Student')
+);
+INSERT INTO enrollment (person_id, section_id, role_id) VALUES
+( (SELECT person_id FROM person WHERE person_fname = 'Maria')
+, (SELECT section_id
+   FROM   section s
+   INNER JOIN course c ON s.course_id = c.course_id
+   INNER JOIN term t ON s.term_id = t.term_id
+   WHERE CONCAT(term_semester, ' ', term_year) = 'Fall 2024'
+   AND   CONCAT(course_code, ' ', course_num) = 'MATH 221B'
+   AND   section_num = 1)
+, (SELECT role_id FROM role WHERE role = 'Student')
+);
+INSERT INTO enrollment (person_id, section_id, role_id) VALUES
+( (SELECT person_id FROM person WHERE person_fname = 'Tracy')
+, (SELECT section_id
+   FROM   section s
+   INNER JOIN course c ON s.course_id = c.course_id
+   INNER JOIN term t ON s.term_id = t.term_id
+   WHERE CONCAT(term_semester, ' ', term_year) = 'Fall 2024'
+   AND   CONCAT(course_code, ' ', course_num) = 'MATH 221B'
+   AND   section_num = 1)
+, (SELECT role_id FROM role WHERE role = 'Student')
+);
+INSERT INTO enrollment (person_id, section_id, role_id) VALUES
+( (SELECT person_id FROM person WHERE person_fname = 'Erick')
+, (SELECT section_id
+   FROM   section s
+   INNER JOIN course c ON s.course_id = c.course_id
+   INNER JOIN term t ON s.term_id = t.term_id
+   WHERE CONCAT(term_semester, ' ', term_year) = 'Fall 2024'
+   AND   CONCAT(course_code, ' ', course_num) = 'MATH 119'
+   AND   section_num = 1)
+, (SELECT role_id FROM role WHERE role = 'Student')
+);
+INSERT INTO enrollment (person_id, section_id, role_id) VALUES
+( (SELECT person_id FROM person WHERE person_fname = 'Lillie')
+, (SELECT section_id
+   FROM   section s
+   INNER JOIN course c ON s.course_id = c.course_id
+   INNER JOIN term t ON s.term_id = t.term_id
+   WHERE CONCAT(term_semester, ' ', term_year) = 'Fall 2024'
+   AND   CONCAT(course_code, ' ', course_num) = 'MATH 221B'
+   AND   section_num = 1)
+, (SELECT role_id FROM role WHERE role = 'Student')
+);
+INSERT INTO enrollment (person_id, section_id, role_id) VALUES
+( (SELECT person_id FROM person WHERE person_fname = 'Lillie')
+, (SELECT section_id
+   FROM   section s
+   INNER JOIN course c ON s.course_id = c.course_id
+   INNER JOIN term t ON s.term_id = t.term_id
+   WHERE CONCAT(term_semester, ' ', term_year) = 'Fall 2024'
+   AND   CONCAT(course_code, ' ', course_num) = 'MATH 119'
+   AND   section_num = 1)
+, (SELECT role_id FROM role WHERE role = 'TA')
+);
+INSERT INTO enrollment (person_id, section_id, role_id) VALUES
+( (SELECT person_id FROM person WHERE person_fname = 'Nellie')
+, (SELECT section_id
+   FROM   section s
+   INNER JOIN course c ON s.course_id = c.course_id
+   INNER JOIN term t ON s.term_id = t.term_id
+   WHERE CONCAT(term_semester, ' ', term_year) = 'Winter 2025'
+   AND   CONCAT(course_code, ' ', course_num) = 'CSE 100'
+   AND   section_num = 3)
+, (SELECT role_id FROM role WHERE role = 'Student')
+);
+INSERT INTO enrollment (person_id, section_id, role_id) VALUES
+( (SELECT person_id FROM person WHERE person_fname = 'Allen')
+, (SELECT section_id
+   FROM   section s
+   INNER JOIN course c ON s.course_id = c.course_id
+   INNER JOIN term t ON s.term_id = t.term_id
+   WHERE CONCAT(term_semester, ' ', term_year) = 'Winter 2025'
+   AND   CONCAT(course_code, ' ', course_num) = 'CSE 100'
+   AND   section_num = 2)
+, (SELECT role_id FROM role WHERE role = 'Student')
+);
+INSERT INTO enrollment (person_id, section_id, role_id) VALUES
+( (SELECT person_id FROM person WHERE person_fname = 'Allen')
+, (SELECT section_id
+   FROM   section s
+   INNER JOIN course c ON s.course_id = c.course_id
+   INNER JOIN term t ON s.term_id = t.term_id
+   WHERE CONCAT(term_semester, ' ', term_year) = 'Winter 2025'
+   AND   CONCAT(course_code, ' ', course_num) = 'WDD 130'
+   AND   section_num = 1)
+, (SELECT role_id FROM role WHERE role = 'TA')
+);
+INSERT INTO enrollment (person_id, section_id, role_id) VALUES
+( (SELECT person_id FROM person WHERE person_fname = 'Allen')
+, (SELECT section_id
+   FROM   section s
+   INNER JOIN course c ON s.course_id = c.course_id
+   INNER JOIN term t ON s.term_id = t.term_id
+   WHERE CONCAT(term_semester, ' ', term_year) = 'Winter 2025'
+   AND   CONCAT(course_code, ' ', course_num) = 'MATH 119'
+   AND   section_num = 1)
+, (SELECT role_id FROM role WHERE role = 'Student')
+);
+INSERT INTO enrollment (person_id, section_id, role_id) VALUES
+( (SELECT person_id FROM person WHERE person_fname = 'Josh')
+, (SELECT section_id
+   FROM   section s
+   INNER JOIN course c ON s.course_id = c.course_id
+   INNER JOIN term t ON s.term_id = t.term_id
+   WHERE CONCAT(term_semester, ' ', term_year) = 'Winter 2025'
+   AND   CONCAT(course_code, ' ', course_num) = 'WDD 130'
+   AND   section_num = 2)
+, (SELECT role_id FROM role WHERE role = 'Student')
+);
+INSERT INTO enrollment (person_id, section_id, role_id) VALUES
+( (SELECT person_id FROM person WHERE person_fname = 'Janine')
+, (SELECT section_id
+   FROM   section s
+   INNER JOIN course c ON s.course_id = c.course_id
+   INNER JOIN term t ON s.term_id = t.term_id
+   WHERE CONCAT(term_semester, ' ', term_year) = 'Winter 2025'
+   AND   CONCAT(course_code, ' ', course_num) = 'WDD 130'
+   AND   section_num = 2)
+, (SELECT role_id FROM role WHERE role = 'Student')
+);
+INSERT INTO enrollment (person_id, section_id, role_id) VALUES
+( (SELECT person_id FROM person WHERE person_fname = 'Kerri')
+, (SELECT section_id
+   FROM   section s
+   INNER JOIN course c ON s.course_id = c.course_id
+   INNER JOIN term t ON s.term_id = t.term_id
+   WHERE CONCAT(term_semester, ' ', term_year) = 'Winter 2025'
+   AND   CONCAT(course_code, ' ', course_num) = 'CSE 100'
+   AND   section_num = 2)
+, (SELECT role_id FROM role WHERE role = 'Student')
+);
