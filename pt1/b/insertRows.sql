@@ -19,9 +19,9 @@ INSERT INTO department (department) VALUES
 
 -- CREATE DEGREES
 INSERT INTO degree (degree, department_id) VALUES
-  ('Computer Science', (SELECT department_id FROM department WHERE name = 'Computer Science and Engineering'))
-, ('Web Design and Development', (SELECT department_id FROM department WHERE name = 'Computer Science and Engineering'))
-, ('Data Science', (SELECT department_id FROM department WHERE name = 'Mathematics'));
+  ('Computer Science', (SELECT department_id FROM department WHERE department = 'Computer Science and Engineering'))
+, ('Web Design and Development', (SELECT department_id FROM department WHERE department = 'Computer Science and Engineering'))
+, ('Data Science', (SELECT department_id FROM department WHERE department = 'Mathematics'));
 
 -- CREATE COURSES
 INSERT INTO course (course_title, course_code, course_num, course_credits, degree_id) VALUES
@@ -35,7 +35,7 @@ INSERT INTO term (term_semester, term_year) VALUES
   ('Fall', 2024)
 , ('Winter', 2024)
 , ('Fall', 2025)
-, ('Winter', 2025)
+, ('Winter', 2025);
 
 -- CREATE SECTIONS
 INSERT INTO section (section, section_capacity, course_id, term_id) VALUES
@@ -68,20 +68,20 @@ INSERT INTO section (section, section_capacity, course_id, term_id) VALUES
     (SELECT term_id FROM term WHERE term_semester = 'Winter' AND term_year = 2025))
 , (1, 40, 
     (SELECT course_id FROM course WHERE course_code = 'MATH' AND course_num = '119'),
-    (SELECT term_id FROM term WHERE term_semester = 'Winter' AND term_year = 2025))
+    (SELECT term_id FROM term WHERE term_semester = 'Winter' AND term_year = 2025));
 
 -- CREATE ROLES
 INSERT INTO role (role) VALUES
   ('Teacher')
 , ('Student')
-, ('TA')
+, ('TA');
 
 -- CREATE PEOPLE
-INSERT INTO (person_fname, person_lname) VALUES
+INSERT INTO person (person_fname, person_lname) VALUES
   ('John', 'Parker')
 , ('Reed', 'Nielsen')
 , ('George', 'Martin')
-, ('Michael', 'Duncan')
+, ('Michael', 'Duncan');
 
 INSERT INTO person (person_fname, person_lname, person_gender, person_city, person_state, person_birthdate) VALUES
   ('Marshall', 'Spence', 'M', 'Garland', 'TX', '2000-06-23')
@@ -93,7 +93,7 @@ INSERT INTO person (person_fname, person_lname, person_gender, person_city, pers
 , ('Allen', 'Stokes', 'M', 'Bozeman', 'MT', '2004-09-16')
 , ('Josh', 'Rollins', 'M', 'Decatur', 'TN', '1998-11-28')
 , ('Janine', 'Bowers', 'F', 'Rexburg', 'ID', '2004-06-23')
-, ('Kerri', 'Shah', 'F', 'Mesa', 'AZ', '2003-04-05')
+, ('Kerri', 'Shah', 'F', 'Mesa', 'AZ', '2003-04-05');
 
 
 -- CREATE ENROLLMENTS
@@ -105,7 +105,7 @@ INSERT INTO enrollment (person_id, section_id, role_id) VALUES
    INNER JOIN term t ON s.term_id = t.term_id
    WHERE CONCAT(term_semester, ' ', term_year) = 'Fall 2024'
    AND   CONCAT(course_code, ' ', course_num) = 'CSE 100'
-   AND   section_num = 1)
+   AND   section = 1)
 , (SELECT role_id FROM role WHERE role = 'Teacher')
 );
 INSERT INTO enrollment (person_id, section_id, role_id) VALUES
@@ -116,7 +116,7 @@ INSERT INTO enrollment (person_id, section_id, role_id) VALUES
    INNER JOIN term t ON s.term_id = t.term_id
    WHERE CONCAT(term_semester, ' ', term_year) = 'Winter 2025'
    AND   CONCAT(course_code, ' ', course_num) = 'CSE 100'
-   AND   section_num = 2)
+   AND   section = 2)
 , (SELECT role_id FROM role WHERE role = 'Teacher')
 );
 INSERT INTO enrollment (person_id, section_id, role_id) VALUES
@@ -127,7 +127,7 @@ INSERT INTO enrollment (person_id, section_id, role_id) VALUES
    INNER JOIN term t ON s.term_id = t.term_id
    WHERE CONCAT(term_semester, ' ', term_year) = 'Winter 2025'
    AND   CONCAT(course_code, ' ', course_num) = 'CSE 100'
-   AND   section_num = 3)
+   AND   section = 3)
 , (SELECT role_id FROM role WHERE role = 'Teacher')
 );
 INSERT INTO enrollment (person_id, section_id, role_id) VALUES
@@ -138,7 +138,7 @@ INSERT INTO enrollment (person_id, section_id, role_id) VALUES
    INNER JOIN term t ON s.term_id = t.term_id
    WHERE CONCAT(term_semester, ' ', term_year) = 'Fall 2024'
    AND   CONCAT(course_code, ' ', course_num) = 'WDD 130'
-   AND   section_num = 1)
+   AND   section = 1)
 , (SELECT role_id FROM role WHERE role = 'Teacher')
 );
 INSERT INTO enrollment (person_id, section_id, role_id) VALUES
@@ -149,7 +149,7 @@ INSERT INTO enrollment (person_id, section_id, role_id) VALUES
    INNER JOIN term t ON s.term_id = t.term_id
    WHERE CONCAT(term_semester, ' ', term_year) = 'Fall 2024'
    AND   CONCAT(course_code, ' ', course_num) = 'WDD 130'
-   AND   section_num = 1)
+   AND   section = 1)
 , (SELECT role_id FROM role WHERE role = 'Teacher')
 );
 INSERT INTO enrollment (person_id, section_id, role_id) VALUES
@@ -160,7 +160,7 @@ INSERT INTO enrollment (person_id, section_id, role_id) VALUES
    INNER JOIN term t ON s.term_id = t.term_id
    WHERE CONCAT(term_semester, ' ', term_year) = 'Winter 2025'
    AND   CONCAT(course_code, ' ', course_num) = 'WDD 130'
-   AND   section_num = 2)
+   AND   section = 2)
 , (SELECT role_id FROM role WHERE role = 'Teacher')
 );
 INSERT INTO enrollment (person_id, section_id, role_id) VALUES
@@ -171,7 +171,7 @@ INSERT INTO enrollment (person_id, section_id, role_id) VALUES
    INNER JOIN term t ON s.term_id = t.term_id
    WHERE CONCAT(term_semester, ' ', term_year) = 'Fall 2024'
    AND   CONCAT(course_code, ' ', course_num) = 'MATH 221B'
-   AND   section_num = 1)
+   AND   section = 1)
 , (SELECT role_id FROM role WHERE role = 'Teacher')
 );
 INSERT INTO enrollment (person_id, section_id, role_id) VALUES
@@ -182,7 +182,7 @@ INSERT INTO enrollment (person_id, section_id, role_id) VALUES
    INNER JOIN term t ON s.term_id = t.term_id
    WHERE CONCAT(term_semester, ' ', term_year) = 'Fall 2024'
    AND   CONCAT(course_code, ' ', course_num) = 'MATH 119'
-   AND   section_num = 1)
+   AND   section = 1)
 , (SELECT role_id FROM role WHERE role = 'Teacher')
 );
 INSERT INTO enrollment (person_id, section_id, role_id) VALUES
@@ -193,29 +193,29 @@ INSERT INTO enrollment (person_id, section_id, role_id) VALUES
    INNER JOIN term t ON s.term_id = t.term_id
    WHERE CONCAT(term_semester, ' ', term_year) = 'Winter 2025'
    AND   CONCAT(course_code, ' ', course_num) = 'MATH 119'
-   AND   section_num = 1)
+   AND   section = 1)
 , (SELECT role_id FROM role WHERE role = 'Teacher')
 );
 INSERT INTO enrollment (person_id, section_id, role_id) VALUES
-( (SELECT person_id FROM person WHERE person_fname = 'Marhsall')
+( (SELECT person_id FROM person WHERE person_fname = 'Marshall')
 , (SELECT section_id
    FROM   section s
    INNER JOIN course c ON s.course_id = c.course_id
    INNER JOIN term t ON s.term_id = t.term_id
    WHERE CONCAT(term_semester, ' ', term_year) = 'Fall 2024'
    AND   CONCAT(course_code, ' ', course_num) = 'CSE 100'
-   AND   section_num = 1)
+   AND   section = 1)
 , (SELECT role_id FROM role WHERE role = 'Student')
 );
 INSERT INTO enrollment (person_id, section_id, role_id) VALUES
-( (SELECT person_id FROM person WHERE person_fname = 'Marhsall')
+( (SELECT person_id FROM person WHERE person_fname = 'Marshall')
 , (SELECT section_id
    FROM   section s
    INNER JOIN course c ON s.course_id = c.course_id
    INNER JOIN term t ON s.term_id = t.term_id
    WHERE CONCAT(term_semester, ' ', term_year) = 'Fall 2024'
    AND   CONCAT(course_code, ' ', course_num) = 'WDD 130'
-   AND   section_num = 2)
+   AND   section = 2)
 , (SELECT role_id FROM role WHERE role = 'Student')
 );
 INSERT INTO enrollment (person_id, section_id, role_id) VALUES
@@ -226,7 +226,7 @@ INSERT INTO enrollment (person_id, section_id, role_id) VALUES
    INNER JOIN term t ON s.term_id = t.term_id
    WHERE CONCAT(term_semester, ' ', term_year) = 'Fall 2024'
    AND   CONCAT(course_code, ' ', course_num) = 'MATH 221B'
-   AND   section_num = 1)
+   AND   section = 1)
 , (SELECT role_id FROM role WHERE role = 'Student')
 );
 INSERT INTO enrollment (person_id, section_id, role_id) VALUES
@@ -237,7 +237,7 @@ INSERT INTO enrollment (person_id, section_id, role_id) VALUES
    INNER JOIN term t ON s.term_id = t.term_id
    WHERE CONCAT(term_semester, ' ', term_year) = 'Fall 2024'
    AND   CONCAT(course_code, ' ', course_num) = 'MATH 221B'
-   AND   section_num = 1)
+   AND   section = 1)
 , (SELECT role_id FROM role WHERE role = 'Student')
 );
 INSERT INTO enrollment (person_id, section_id, role_id) VALUES
@@ -248,7 +248,7 @@ INSERT INTO enrollment (person_id, section_id, role_id) VALUES
    INNER JOIN term t ON s.term_id = t.term_id
    WHERE CONCAT(term_semester, ' ', term_year) = 'Fall 2024'
    AND   CONCAT(course_code, ' ', course_num) = 'MATH 119'
-   AND   section_num = 1)
+   AND   section = 1)
 , (SELECT role_id FROM role WHERE role = 'Student')
 );
 INSERT INTO enrollment (person_id, section_id, role_id) VALUES
@@ -259,7 +259,7 @@ INSERT INTO enrollment (person_id, section_id, role_id) VALUES
    INNER JOIN term t ON s.term_id = t.term_id
    WHERE CONCAT(term_semester, ' ', term_year) = 'Fall 2024'
    AND   CONCAT(course_code, ' ', course_num) = 'MATH 221B'
-   AND   section_num = 1)
+   AND   section = 1)
 , (SELECT role_id FROM role WHERE role = 'Student')
 );
 INSERT INTO enrollment (person_id, section_id, role_id) VALUES
@@ -270,7 +270,7 @@ INSERT INTO enrollment (person_id, section_id, role_id) VALUES
    INNER JOIN term t ON s.term_id = t.term_id
    WHERE CONCAT(term_semester, ' ', term_year) = 'Fall 2024'
    AND   CONCAT(course_code, ' ', course_num) = 'MATH 119'
-   AND   section_num = 1)
+   AND   section = 1)
 , (SELECT role_id FROM role WHERE role = 'TA')
 );
 INSERT INTO enrollment (person_id, section_id, role_id) VALUES
@@ -281,7 +281,7 @@ INSERT INTO enrollment (person_id, section_id, role_id) VALUES
    INNER JOIN term t ON s.term_id = t.term_id
    WHERE CONCAT(term_semester, ' ', term_year) = 'Winter 2025'
    AND   CONCAT(course_code, ' ', course_num) = 'CSE 100'
-   AND   section_num = 3)
+   AND   section = 3)
 , (SELECT role_id FROM role WHERE role = 'Student')
 );
 INSERT INTO enrollment (person_id, section_id, role_id) VALUES
@@ -292,7 +292,7 @@ INSERT INTO enrollment (person_id, section_id, role_id) VALUES
    INNER JOIN term t ON s.term_id = t.term_id
    WHERE CONCAT(term_semester, ' ', term_year) = 'Winter 2025'
    AND   CONCAT(course_code, ' ', course_num) = 'CSE 100'
-   AND   section_num = 2)
+   AND   section = 2)
 , (SELECT role_id FROM role WHERE role = 'Student')
 );
 INSERT INTO enrollment (person_id, section_id, role_id) VALUES
@@ -303,7 +303,7 @@ INSERT INTO enrollment (person_id, section_id, role_id) VALUES
    INNER JOIN term t ON s.term_id = t.term_id
    WHERE CONCAT(term_semester, ' ', term_year) = 'Winter 2025'
    AND   CONCAT(course_code, ' ', course_num) = 'WDD 130'
-   AND   section_num = 1)
+   AND   section = 1)
 , (SELECT role_id FROM role WHERE role = 'TA')
 );
 INSERT INTO enrollment (person_id, section_id, role_id) VALUES
@@ -314,7 +314,7 @@ INSERT INTO enrollment (person_id, section_id, role_id) VALUES
    INNER JOIN term t ON s.term_id = t.term_id
    WHERE CONCAT(term_semester, ' ', term_year) = 'Winter 2025'
    AND   CONCAT(course_code, ' ', course_num) = 'MATH 119'
-   AND   section_num = 1)
+   AND   section = 1)
 , (SELECT role_id FROM role WHERE role = 'Student')
 );
 INSERT INTO enrollment (person_id, section_id, role_id) VALUES
@@ -325,7 +325,7 @@ INSERT INTO enrollment (person_id, section_id, role_id) VALUES
    INNER JOIN term t ON s.term_id = t.term_id
    WHERE CONCAT(term_semester, ' ', term_year) = 'Winter 2025'
    AND   CONCAT(course_code, ' ', course_num) = 'WDD 130'
-   AND   section_num = 2)
+   AND   section = 2)
 , (SELECT role_id FROM role WHERE role = 'Student')
 );
 INSERT INTO enrollment (person_id, section_id, role_id) VALUES
@@ -336,7 +336,7 @@ INSERT INTO enrollment (person_id, section_id, role_id) VALUES
    INNER JOIN term t ON s.term_id = t.term_id
    WHERE CONCAT(term_semester, ' ', term_year) = 'Winter 2025'
    AND   CONCAT(course_code, ' ', course_num) = 'WDD 130'
-   AND   section_num = 2)
+   AND   section = 2)
 , (SELECT role_id FROM role WHERE role = 'Student')
 );
 INSERT INTO enrollment (person_id, section_id, role_id) VALUES
@@ -347,6 +347,6 @@ INSERT INTO enrollment (person_id, section_id, role_id) VALUES
    INNER JOIN term t ON s.term_id = t.term_id
    WHERE CONCAT(term_semester, ' ', term_year) = 'Winter 2025'
    AND   CONCAT(course_code, ' ', course_num) = 'CSE 100'
-   AND   section_num = 2)
+   AND   section = 2)
 , (SELECT role_id FROM role WHERE role = 'Student')
 );

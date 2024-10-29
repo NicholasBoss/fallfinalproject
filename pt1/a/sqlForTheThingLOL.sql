@@ -36,10 +36,10 @@ CREATE TABLE IF NOT EXISTS `university`.`person` (
   `person_id` INT NOT NULL AUTO_INCREMENT,
   `person_fname` VARCHAR(45) NOT NULL,
   `person_lname` VARCHAR(45) NOT NULL,
-  `person_gender` VARCHAR(20) NOT NULL,
-  `person_city` VARCHAR(45) NOT NULL,
-  `person_state` CHAR(2) NOT NULL,
-  `person_birthdate` DATE NOT NULL,
+  `person_gender` VARCHAR(20) NULL,
+  `person_city` VARCHAR(45) NULL,
+  `person_state` CHAR(2) NULL,
+  `person_birthdate` DATE NULL,
   PRIMARY KEY (`person_id`))
 ENGINE = InnoDB;
 
@@ -83,8 +83,8 @@ DROP TABLE IF EXISTS `university`.`course` ;
 CREATE TABLE IF NOT EXISTS `university`.`course` (
   `course_id` INT NOT NULL AUTO_INCREMENT,
   `course_title` VARCHAR(45) NOT NULL,
-  `course_code` VARCHAR(4) NOT NULL,
-  `course_num` VARCHAR(4) NOT NULL,
+  `course_code` CHAR(4) NOT NULL,
+  `course_num` CHAR(4) NOT NULL,
   `course_credits` INT NOT NULL,
   `degree_id` INT NOT NULL,
   PRIMARY KEY (`course_id`),
@@ -118,7 +118,7 @@ DROP TABLE IF EXISTS `university`.`section` ;
 CREATE TABLE IF NOT EXISTS `university`.`section` (
   `section_id` INT NOT NULL AUTO_INCREMENT,
   `section` INT NOT NULL,
-  `section_capacity` INT NOT NULL,
+  `section_capacity` VARCHAR(45) NOT NULL,
   `course_id` INT NOT NULL,
   `term_id` INT NOT NULL,
   PRIMARY KEY (`section_id`),
@@ -172,6 +172,3 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
-
-
