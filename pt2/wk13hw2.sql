@@ -10,7 +10,7 @@ SELECT
 , 	person_lname AS "last_name"
 , 	DATE_FORMAT(person_birthdate, '%M %d, %Y') AS "June Birthdays"
 FROM person
-WHERE person_birthdate LIKE "%-06-%"
+WHERE person_birthdate LIKE "%-06-%";
 
 -- ----------------------------------------------------------------------------
 -- Query 2: Student's age in years and days as of Mar. 10, 2019.  
@@ -24,17 +24,17 @@ SELECT DISTINCT
 	person_lname AS "last_name"
 , 	person_fname AS "first_name"
 ,	person_birthdate AS "dob"
-,	FLOOR(DATEDIFF(CURDATE(), person_birthdate) / 365) AS "Years"
-,	MOD(DATEDIFF(CURDATE(), person_birthdate), 365) AS "Days"
+,	FLOOR(DATEDIFF('2019-03-10', person_birthdate) / 365) AS "Years"
+,	MOD(DATEDIFF('2019-03-10', person_birthdate), 365) AS "Days"
 ,	CONCAT(
-        FLOOR(DATEDIFF(CURDATE(), person_birthdate) / 365.25), ' - Yrs, ', 
-        DATEDIFF(CURDATE(), person_birthdate) % 365, ' - Days'
+        FLOOR(DATEDIFF('2019-03-10', person_birthdate) / 365.25), ' - Yrs, ',
+        DATEDIFF('2019-03-10', person_birthdate) % 365, ' - Days'
     ) AS "Years and Days"
 FROM person p
 INNER JOIN enrollment e ON p.person_id = e.person_id
 INNER JOIN role r ON e.role_id = r.role_id
 WHERE role = "Student"
-ORDER BY person_birthdate
+ORDER BY person_birthdate;
 
 -- ----------------------------------------------------------------------
 -- Query 3: Who is enrolled in Web Fundamentals?
@@ -51,7 +51,7 @@ INNER JOIN role r ON e.role_id = r.role_id
 INNER JOIN section s ON e.section_id = s.section_id
 INNER JOIN course c ON s.course_id = c.course_id
 WHERE course_title LIKE "%Web Fundamentals%"
-ORDER BY role
+ORDER BY role;
 
 -- ----------------------------------------------------------------------
 -- Query 4: Find the TAs. What are their names? 
@@ -68,7 +68,7 @@ INNER JOIN enrollment e ON p.person_id = e.person_id
 INNER JOIN role r ON e.role_id = r.role_id
 INNER JOIN section s ON e.section_id = s.section_id
 INNER JOIN course c ON s.course_id = c.course_id
-WHERE role = "TA"
+WHERE role = "TA";
 
 -- ----------------------------------------------------------------------
 -- Query 5: Students that take Intro to Computing in Winter. 
@@ -87,7 +87,7 @@ WHERE
 	course_title = "Intro to Computing" 
 	AND term_semester = "Winter"
     AND role = "Student"
-ORDER BY person_lname
+ORDER BY person_lname;
 
 -- ----------------------------------------------------------------------
 -- Query 6: What classes does Reed teach? 
@@ -106,7 +106,7 @@ INNER JOIN section s ON e.section_id = s.section_id
 INNER JOIN term t ON s.term_id = t.term_id
 INNER JOIN course c ON s.course_id = c.course_id
 WHERE role = "Teacher" AND person_fname = "Reed"
-ORDER BY term_semester ASC, section ASC
+ORDER BY term_semester ASC, section ASC;
 
 -- ----------------------------------------------------------------------
 -- Query 7: The number of students enrolled for Fall.
@@ -149,7 +149,7 @@ INNER JOIN person p ON e.person_id = p.person_id
 INNER JOIN section s ON e.section_id = s.section_id
 WHERE role = "Teacher"
 GROUP BY person_fname, person_lname
-ORDER BY sum(section_capacity)
+ORDER BY sum(section_capacity);
 
 -- --------------------------------------------------------------------------------
 -- Query 10: Each student's total credit load for Fall, 
@@ -164,9 +164,10 @@ FROM enrollment e
 INNER JOIN role r ON e.role_id = r.role_id
 INNER JOIN person p ON e.person_id = p.person_id
 INNER JOIN section s ON e.section_id = s.section_id
+INNER JOIN term t ON s.term_id = t.term_id
 INNER JOIN course c ON s.course_id = c.course_id
-WHERE role = "Student"
+WHERE role = "Student" AND term_semester = "Fall" AND term_year = 2024
 GROUP BY person_lname, person_fname
 HAVING SUM(course_credits) >= 3
-ORDER BY SUM(course_credits) DESC
+ORDER BY SUM(course_credits) DESC;
 
